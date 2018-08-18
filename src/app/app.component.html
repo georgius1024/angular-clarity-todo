@@ -1,0 +1,90 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="main-container">
+  <header class="header-6">
+    <div class="branding">
+      <img src="/assets/angular.png" class="logo-branding">
+      <span class="title">
+        Angular Todo App
+      </span>
+    </div>
+    <div class="header-actions">
+      <a href="javascript:void(0)" (click)="createTodo()" class="nav-link nav-icon">
+        <clr-icon shape="add"></clr-icon>
+      </a>
+    </div>
+  </header>
+  <div class="content-container">
+    <div class="content-area">
+      <ul class="todos" [sortablejs]="items" [sortablejsOptions]="eventOptions">
+        <li *ngFor="let item of items">
+          <div class="clr-row">
+            <div class="clr-col-11" (dblclick)="updateTodo(item)">
+              <clr-icon shape="ellipsis-vertical" size="16" class="draggable"></clr-icon>
+              {{item.title}}
+              <span class="badge">{{item.status}}</span>
+            </div>
+            <div class="clr-col-1" style="text-align: right">
+              <clr-icon size="16" class="control-button" shape="times" (click)="removeTodo(item.id)"></clr-icon>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <button type="button" class="btn btn-icon btn-primary" (click)="createTodo()">
+        <clr-icon shape="add"></clr-icon> Добавить
+      </button>
+      <clr-modal [(clrModalOpen)]="create">
+        <h3 class="modal-title">Добавить задание</h3>
+        <div class="modal-body">
+          <div class="clr-row">
+            <div class="clr-col">
+              <form clrForm class="clr-form">
+                <div class="clr-form-control">
+                  <div class="clr-control-container full-width">
+                    <input clrInput placeholder="Задача" name="title"  size="180"  [(ngModel)]="title" class="clr-input full-width" />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="createTodoCompleted()" [disabled]="!title">ОК</button>
+          <button type="button" class="btn btn-outline" (click)="create = false">Отмена</button>
+        </div>
+      </clr-modal>
+
+      <clr-modal [(clrModalOpen)]="delete" clrModalSize="sm">
+        <h3 class="modal-title">Подтверждение</h3>
+        <div class="modal-body">
+          Подтвердите удаление задания
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="removeTodoConfirmed()">Удалить</button>
+          <button type="button" class="btn btn-outline" (click)="delete = false">Отмена</button>
+        </div>
+      </clr-modal>
+
+      <clr-modal [(clrModalOpen)]="update">
+        <h3 class="modal-title">Изменить задание</h3>
+        <div class="modal-body">
+          <div class="clr-row">
+            <div class="clr-col">
+              <form clrForm class="clr-form">
+                <div class="clr-form-control">
+                  <div class="clr-control-container full-width">
+                    <input clrInput placeholder="Задача" name="title"  size="180"  [(ngModel)]="title" class="clr-input full-width" />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateTodoCompleted()" [disabled]="!title">ОК</button>
+          <button type="button" class="btn btn-outline" (click)="update = false">Отмена</button>
+        </div>
+      </clr-modal>
+
+    </div>
+  </div>
+</div>
